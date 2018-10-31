@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ORMDemo.Entities;
 
 namespace ORMDemo
 {
@@ -10,6 +6,12 @@ namespace ORMDemo
     {
         static void Main(string[] args)
         {
+            var group = new Group();
+            var student = new Student
+            {
+                Name = "Вася Пупкин"
+            };
+            group.AddStudent(student);
         }
     }
 }
