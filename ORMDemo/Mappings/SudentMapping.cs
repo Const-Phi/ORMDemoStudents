@@ -1,5 +1,4 @@
-﻿using System;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using ORMDemo.Entities;
 
 namespace ORMDemo.Mappings
@@ -13,6 +12,8 @@ namespace ORMDemo.Mappings
             Id(x => x.Id);
 
             Map(x => x.Name).Column("FullName");
+
+            References(x => x.Group);
         }
     }
 }
