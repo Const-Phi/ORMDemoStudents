@@ -17,5 +17,4 @@ INSERT INTO Library.Books
 VALUES(1, N'Займёмся исследованием операций');
 
 
-SELECT *
-FROM Library.Books
+SELECT * FROM Library.Books

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using ORMDemo.Entities;
 
@@ -13,21 +15,29 @@ namespace ORMDemo
         {
             using (var connection = new SqlConnection(GetConnectionString()))
             {
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
+
                 var command = new SqlCommand()
                 {
-                    CommandText = "select * from Books",
+                    CommandText = "select count(*) from [Library].[Books];",
                     Connection = connection
                 };
 
-                command.ExecuteNonQuery(); // для не select-запросов
-                var reader = command.ExecuteReader();
-                var books = new List<Book>();
-                while (reader.HasRows)
-                {
-                    // reader.
+                var booksCount = command.ExecuteScalar();
+                Console.WriteLine($"count = {booksCount}");
 
-                    books.Add(new Book(/*...*/));
-                }
+                //var reader = command.ExecuteReader();
+                //var books = new List<Book>();
+                //while (reader.HasRows)
+                //{
+                //    // reader.
+
+                //    books.Add(new Book(/*...*/));
+                //}
+
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
             }
 
 
@@ -48,7 +58,8 @@ namespace ORMDemo
 .AppSettings[$"{Prefix}DatabaseLocation"],
                 InitialCatalog = ConfigurationManager
 .AppSettings[$"{Prefix}DatabaseName"],
-                IntegratedSecurity = true
+                UserID = ConfigurationManager.AppSettings[$"{Prefix}DatabaseLogin"],
+                Password = ConfigurationManager.AppSettings[$"{Prefix}DatabasePassword"]
             };
             return builder.ConnectionString;
         }
