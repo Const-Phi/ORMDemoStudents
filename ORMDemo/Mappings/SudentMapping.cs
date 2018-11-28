@@ -7,13 +7,25 @@ namespace ORMDemo.Mappings
     {
         public StudentMapping()
         {
-            Table($"SchemaName.{nameof(Student)}s");
+            Table($"Faculty.{nameof(Student)}s");
+
+            Id(x => x.Id).GeneratedBy.Assigned();
+            
+            Map(x => x.Name).Column("FullName").Not.Nullable();
+
+            References(x => x.Group);
+        }
+    }
+
+    class GroupMapping : ClassMap<Group>
+    {
+        public GroupMapping()
+        {
+            Table($"Faculty.{nameof(Group)}s");
 
             Id(x => x.Id);
 
-            Map(x => x.Name).Column("FullName");
-
-            References(x => x.Group);
+            HasMany(x => x.Students);
         }
     }
 }

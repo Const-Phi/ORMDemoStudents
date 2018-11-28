@@ -4,6 +4,6 @@
     {
         public virtual int Id { get; set; }
 
-        public bool IsNew => Id == default(int);
+        public virtual bool IsNew => Id == default(int);
     }
 }

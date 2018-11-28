@@ -9,7 +9,7 @@ namespace ORMDemo.Entities
 
         public virtual List<Student> Students { get; set; } = new List<Student>();
 
-        public void AddStudent(Student student)
+        public virtual void AddStudent(Student student)
         {
             if (ReferenceEquals(student, null))
                 throw new ArgumentNullException(nameof(student));
