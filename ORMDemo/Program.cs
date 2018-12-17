@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using ORMDemo.Entities;
-using NHibernate;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using ORMDemo.Repository;
 
 namespace ORMDemo

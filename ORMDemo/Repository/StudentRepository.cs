@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ORMDemo.Entities;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace ORMDemo.Repository
 {
     public class StudentRepository : BaseRepository<Student>
     {
-        protected StudentRepository() { }
+        [Obsolete("Конструктор для создания репозитория через фабрику. Использовать напрямую не рекомендуется.")]
+        public StudentRepository() { }
 
-        public static StudentRepository GetInstance() => GetBaseInstance() as StudentRepository;
+        public static StudentRepository GetInstance() => GetInstance<StudentRepository>();
 
-        public IEnumerable<Student> GetByGroupName(string groupName)
+        public IEnumerable<Student> GetByGroupNameInvalid(string groupName)
         {
             return GetFiltered(s => s.Group.Name == groupName);
         }
+
+        public static Expression<Func<Student, string, bool>> GroupNameFilter =>
+            (student, groupName) => student.Group.Name == groupName;
+
+        public IEnumerable<Student> GetByGroupName(string groupName)
+            => GetAll().Where(GroupNameFilter).ToList();
     }
 }

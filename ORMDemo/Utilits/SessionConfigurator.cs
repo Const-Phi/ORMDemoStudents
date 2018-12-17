@@ -33,13 +33,23 @@ namespace ORMDemo.Utilits
         private static string GetConnectionString()
         {
             var Prefix = "mssql";
+            var auth = Convert.ToBoolean(ConfigurationManager.AppSettings[$"{Prefix}DatabaseAuth"]);
             var builder = new SqlConnectionStringBuilder
             {
                 DataSource = ConfigurationManager.AppSettings[$"{Prefix}DatabaseLocation"],
                 InitialCatalog = ConfigurationManager.AppSettings[$"{Prefix}DatabaseName"],
-                UserID = ConfigurationManager.AppSettings[$"{Prefix}DatabaseLogin"],
-                Password = ConfigurationManager.AppSettings[$"{Prefix}DatabasePassword"]
             };
+
+            if (auth)
+            {
+                builder.IntegratedSecurity = true;
+            }
+            else
+            {
+                builder.UserID = ConfigurationManager.AppSettings[$"{Prefix}DatabaseLogin"];
+                builder.Password = ConfigurationManager.AppSettings[$"{Prefix}DatabasePassword"];
+            }
+
             return builder.ConnectionString;
         }
 
