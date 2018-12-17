@@ -20,6 +20,7 @@ select * from Faculty.Groups
 
 insert into Faculty.Students values 
 (1, N'Антонов Дмитрий', 1),
-(2, N'Тимофеева Ольга', 1)
+(2, N'Тимофеева Ольга', 1),
+(3, N'Патутин Дмитрий', 1)
 
 select * from Faculty.Students
