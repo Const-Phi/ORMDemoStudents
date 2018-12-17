@@ -1,4 +1,4 @@
-CREATE DATABASE University;
+п»їCREATE DATABASE University;
 
 USE University;
 
@@ -14,7 +14,7 @@ CREATE TABLE Library.Books
 
 
 INSERT INTO Library.Books
-VALUES(1, N'Займёмся исследованием операций');
+VALUES(1, N'Р—Р°Р№РјС‘РјСЃСЏ РёСЃСЃР»РµРґРѕРІР°РЅРёРµРј РѕРїРµСЂР°С†РёР№');
 
 
 SELECT * FROM Library.Books
