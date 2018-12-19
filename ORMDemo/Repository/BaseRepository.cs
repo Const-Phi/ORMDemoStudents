@@ -34,7 +34,7 @@ namespace ORMDemo.Repository
             get
             {
                 if (session == null)
-                    session = SessionConfigurator.GetSessionFactory().OpenSession();
+                    session = SessionConfigurator.GetSessionFactoryLazy().OpenSession();
                 return session;
             }
         }

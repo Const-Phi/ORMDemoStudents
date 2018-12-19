@@ -9,18 +9,18 @@ namespace ORMDemo.Utilits
 {
     static class SessionConfigurator
     {
-        //при использовании соглашения по первичному ключу                      
-        //.Conventions.Add<MyIdConvention>() 
-        //при использовании специального соглашения       
-        // .Conventions.Add<MyNoteConvention>()   
-        //при использовании соглашения по внешнему ключу            
+        //при использовании соглашения по первичному ключу
+        //.Conventions.Add<MyIdConvention>()
+        //при использовании специального соглашения
+        // .Conventions.Add<MyNoteConvention>()
+        //при использовании соглашения по внешнему ключу
         // .Conventions.Add<MyForeignKeyConvention>())
 
         private static volatile object locker = new object();
 
         private static ISessionFactory SessionFactory;
 
-        private static ISessionFactory GetSessionFactory(String connectionString)
+        private static ISessionFactory GetSessionFactory(string connectionString)
         {
             var configuration = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2008.ConnectionString(connectionString))
@@ -61,5 +61,10 @@ namespace ORMDemo.Utilits
                         SessionFactory = GetSessionFactory(GetConnectionString());
             return SessionFactory;
         }
+
+        private static Lazy<ISessionFactory> sessionFactory =
+            new Lazy<ISessionFactory>(() => GetSessionFactory(GetConnectionString()));
+
+        public static ISessionFactory GetSessionFactoryLazy() => sessionFactory.Value;
     }
 }
