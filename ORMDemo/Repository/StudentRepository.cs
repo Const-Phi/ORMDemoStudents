@@ -18,10 +18,13 @@ namespace ORMDemo.Repository
             return GetFiltered(s => s.Group.Name == groupName);
         }
 
-        public static Expression<Func<Student, bool>> GroupNameFilter =>
-            (student) => student.Name.Contains("Дмитрий");
+        public static Expression<Func<Student, string, bool>, string> GroupNameFilter =>
+            (selector, name) => selector(s, name);
+
+        private static Expression<Func<Student, string, bool>> Filter => 
+            (student, name) => student.Name.Contains(name);
 
         public IEnumerable<Student> GetByGroupName(string groupName)
-            => GetAll().Where(GroupNameFilter).ToList();
+            => GetAll().Where(Filter).ToList();
     }
 }
