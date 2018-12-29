@@ -17,7 +17,9 @@ namespace ORMDemo.Repository
         public static Expression<Func<string, Expression<Func<Student, bool>>>> GroupNameFilterExpression =>
             name => student => student.Group.Name == name;
 
-        public IEnumerable<Student> GetByGroupName(string groupName) =>
-            GetFiltered(GroupNameFilterExpression.Evaluate(groupName));
+        public static Expression<Func<Student, bool>> GroupNameFilter(string groupName) =>
+            GroupNameFilterExpression.Evaluate(groupName);
+
+        public IEnumerable<Student> GetByGroupName(string groupName) => GetFiltered(GroupNameFilter(groupName));
     }
 }
