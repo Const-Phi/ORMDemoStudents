@@ -16,16 +16,4 @@ namespace ORMDemo.Mappings
             References(x => x.Group);
         }
     }
-
-    class GroupMapping : ClassMap<Group>
-    {
-        public GroupMapping()
-        {
-            Table($"Faculty.{nameof(Group)}s");
-
-            Id(x => x.Id);
-
-            HasMany(x => x.Students);
-        }
-    }
 }

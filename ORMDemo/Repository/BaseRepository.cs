@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+
 using NHibernate;
 
 using ORMDemo.Entities;
@@ -39,14 +41,9 @@ namespace ORMDemo.Repository
             }
         }
 
-        public IQueryable<TEntity> GetAll()
-        {
-            return Session.Query<TEntity>();
-        }
+        public IQueryable<TEntity> GetAll() => Session.Query<TEntity>();
 
-        public IEnumerable<TEntity> GetFiltered(Func<TEntity, bool> filter)
-        {
-            return GetAll().Where(filter).ToList<TEntity>();
-        }
+        public IEnumerable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> filter) =>
+            GetAll().Where(filter).ToList();
     }
 }
