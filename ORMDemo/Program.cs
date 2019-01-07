@@ -15,10 +15,18 @@ namespace ORMDemo
 
             Console.WriteLine($"{Environment.NewLine}Professors:");
 
-            ProfessorRepository.GetInstance()
+            var professors = ProfessorRepository.GetInstance()
                 .GetAll()
-                .ToList()
-                .ForEach(Console.WriteLine);
+                .ToList();
+
+            foreach (var professor in professors)
+            {
+                Console.WriteLine($"\t{professor} ведёт:");
+                foreach (var subject in professor.Subjects)
+                    Console.WriteLine($"\t\t{subject}");
+            }
+
+            Console.WriteLine();
         }
     }
 }

@@ -12,9 +12,10 @@ namespace ORMDemo.Mappings
                 .Not.Nullable();
 
             HasManyToMany(x => x.Professors)
-                .Table("Faculty.ProfessorToSubjects")
-                .ParentKeyColumn("Id")
-                .ChildKeyColumn("Professor_Id")
+                .Cascade.All()
+                .Inverse()
+                .Schema("Faculty")
+                .Table("ProfessorToSubjects")
                 .AsSet();
         }
     }

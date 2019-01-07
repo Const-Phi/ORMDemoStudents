@@ -10,8 +10,8 @@ create table Faculty.Subjects (
 
 create table Faculty.ProfessorToSubjects (
     Id int primary key
-  , Professor_Id int
-  , Subject_Id int
+  , Professor_Id int foreign key references Faculty.Professors(Id) 
+  , Subject_Id int foreign key references Faculty.Subjects(Id) 
 )
 
 insert into Faculty.Professors values 

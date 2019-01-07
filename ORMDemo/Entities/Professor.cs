@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Iesi.Collections.Generic;
 
 namespace ORMDemo.Entities
 {
@@ -7,7 +6,7 @@ namespace ORMDemo.Entities
     {
         public virtual string Name { get; set; }
 
-        public virtual ISet<Subject> Subjects { get; set; } = new LinkedHashSet<Subject>();
+        public virtual ISet<Subject> Subjects { get; set; } = new HashSet<Subject>();
 
         public override string ToString() => Name;
 

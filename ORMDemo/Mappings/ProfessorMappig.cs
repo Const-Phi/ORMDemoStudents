@@ -9,13 +9,12 @@ namespace ORMDemo.Mappings
             Map(x => x.Name)
                 .Column("FullName")
                 .Length(255)
-                .Not.Nullable(); ;
+                .Not.Nullable();
 
             HasManyToMany(x => x.Subjects)
+                .Cascade.SaveUpdate()
                 .Schema("Faculty")
                 .Table("ProfessorToSubjects")
-                .ParentKeyColumn("Id")
-                .ChildKeyColumn("Subject_Id")
                 .AsSet();
         }
     }
