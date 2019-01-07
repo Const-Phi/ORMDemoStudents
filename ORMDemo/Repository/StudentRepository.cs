@@ -22,4 +22,9 @@ namespace ORMDemo.Repository
 
         public IEnumerable<Student> GetByGroupName(string groupName) => GetFiltered(GroupNameFilter(groupName));
     }
+
+    public class ProfessorRepository : BaseRepository<Professor>
+    {
+        public static ProfessorRepository GetInstance() => GetInstance<ProfessorRepository>();
+    }
 }

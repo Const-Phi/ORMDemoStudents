@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ORMDemo.Repository;
 
 namespace ORMDemo
@@ -7,10 +8,17 @@ namespace ORMDemo
     {
         static void Main()
         {
-            var repo = StudentRepository.GetInstance();
-            var students = repo.GetByGroupName("ТУУ-151");
+            var studentRepository = StudentRepository.GetInstance();
+            var students = studentRepository.GetByGroupName("ТУУ-151");
             foreach (var student in students)
                 Console.WriteLine(student);
+
+            Console.WriteLine($"{Environment.NewLine}Professors:");
+
+            ProfessorRepository.GetInstance()
+                .GetAll()
+                .ToList()
+                .ForEach(Console.WriteLine);
         }
     }
 }
