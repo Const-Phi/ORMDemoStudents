@@ -13,7 +13,7 @@ namespace ORMDemo.Mappings
 
             HasManyToMany(x => x.Subjects)
                 .Cascade.SaveUpdate()
-                .Schema("Faculty")
+                .Schema(SchemaName)
                 .Table("ProfessorToSubjects")
                 .AsSet();
         }

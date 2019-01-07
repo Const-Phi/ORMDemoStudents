@@ -8,10 +8,12 @@ namespace ORMDemo
     {
         static void Main()
         {
+            Console.WriteLine($"{Environment.NewLine}Students:");
+
             var studentRepository = StudentRepository.GetInstance();
             var students = studentRepository.GetByGroupName("ТУУ-151");
             foreach (var student in students)
-                Console.WriteLine(student);
+                Console.WriteLine($"\t{student}");
 
             Console.WriteLine($"{Environment.NewLine}Professors:");
 

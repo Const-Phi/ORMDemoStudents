@@ -1,5 +1,4 @@
-﻿using System;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using ORMDemo.Entities;
 
 namespace ORMDemo.Mappings
@@ -8,11 +7,13 @@ namespace ORMDemo.Mappings
     {
         public EntityMapping()
         {
-            Table(TableNameByType(typeof(TEntity)));
+            Schema(SchemaName);
+
+            Table($"{typeof(TEntity).Name}s");
 
             Id(x => x.Id);
         }
 
-        public static string TableNameByType(Type type, string schemaName = "Faculty") => $"{schemaName}.{type.Name}s";
+        public const string SchemaName = "Faculty";
     }
 }

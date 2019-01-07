@@ -14,7 +14,7 @@ namespace ORMDemo.Mappings
             HasManyToMany(x => x.Professors)
                 .Cascade.All()
                 .Inverse()
-                .Schema("Faculty")
+                .Schema(SchemaName)
                 .Table("ProfessorToSubjects")
                 .AsSet();
         }

@@ -1,17 +1,17 @@
 ﻿create table Faculty.Professors (
-	Id int primary key 
+    Id int primary key
   , FullName nvarchar(255) not null
 )
 
 create table Faculty.Subjects (
-	Id int primary key 
+    Id int primary key
   , FullName nvarchar(255) not null
 )
 
 create table Faculty.ProfessorToSubjects (
     Id int primary key
-  , Professor_Id int foreign key references Faculty.Professors(Id) 
-  , Subject_Id int foreign key references Faculty.Subjects(Id) 
+  , Professor_Id int foreign key references Faculty.Professors(Id)
+  , Subject_Id int foreign key references Faculty.Subjects(Id)
 )
 
 insert into Faculty.Professors values 
