@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using ORMDemo.Entities;
-using NHibernate;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
+using System.Linq;
 using ORMDemo.Repository;
 
 namespace ORMDemo
@@ -15,10 +8,27 @@ namespace ORMDemo
     {
         static void Main()
         {
-            var repo = StudentRepository.GetInstance();
-            var students = repo.GetByGroupName("ТУУ-151");
+            Console.WriteLine($"{Environment.NewLine}Students:");
+
+            var studentRepository = StudentRepository.GetInstance();
+            var students = studentRepository.GetByGroupName("ТУУ-151");
             foreach (var student in students)
-                Console.WriteLine(student);
+                Console.WriteLine($"\t{student}");
+
+            Console.WriteLine($"{Environment.NewLine}Professors:");
+
+            var professors = ProfessorRepository.GetInstance()
+                .GetAll()
+                .ToList();
+
+            foreach (var professor in professors)
+            {
+                Console.WriteLine($"\t{professor} ведёт:");
+                foreach (var subject in professor.Subjects)
+                    Console.WriteLine($"\t\t{subject}");
+            }
+
+            Console.WriteLine();
         }
     }
 }

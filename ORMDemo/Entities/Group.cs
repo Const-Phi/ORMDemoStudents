@@ -11,7 +11,7 @@ namespace ORMDemo.Entities
 
         public virtual void AddStudent(Student student)
         {
-            if (ReferenceEquals(student, null))
+            if (student is null)
                 throw new ArgumentNullException(nameof(student));
 
             if (Students.Contains(student))

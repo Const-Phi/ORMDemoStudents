@@ -1,34 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+
 using NHibernate;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 
 using ORMDemo.Entities;
 using ORMDemo.Utilits;
 
 namespace ORMDemo.Repository
 {
-    public class BaseRepository<T> where T : Entity
+    public class BaseRepository<TEntity> where TEntity : Entity
     {
-        private static BaseRepository<T> instance;
+        private static volatile BaseRepository<TEntity> instance;
 
         private static volatile object locker = new object();
 
-        protected BaseRepository()
-        {
+        protected BaseRepository() { }
 
-        }
-
-        protected static BaseRepository<T> GetBaseInstance()
+        protected static TRepository GetInstance<TRepository>()
+            where TRepository : BaseRepository<TEntity>, new()
         {
             if (instance == null)
                 lock (locker)
                     if (instance == null)
-                        instance = new BaseRepository<T>();
+                        instance = new TRepository();
 
-            return instance;
+            return instance as TRepository;
         }
 
         private ISession session;
@@ -38,19 +36,14 @@ namespace ORMDemo.Repository
             get
             {
                 if (session == null)
-                    session = SessionConfigurator.GetSessionFactory().OpenSession();
+                    session = SessionConfigurator.GetSessionFactoryLazy().OpenSession();
                 return session;
             }
         }
 
-        public IQueryable<T> GetAll()
-        {
-            return Session.Query<T>();
-        }
+        public IQueryable<TEntity> GetAll() => Session.Query<TEntity>();
 
-        public IEnumerable<T> GetFiltered(Func<T, bool> filter)
-        {
-            return GetAll().Where(filter).ToList<T>();
-        }
+        public IEnumerable<TEntity> GetFiltered(Expression<Func<TEntity, bool>> filter) =>
+            GetAll().Where(filter).ToList();
     }
 }
